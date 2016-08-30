@@ -1,0 +1,62 @@
+{
+  "name": "react-focusguard",
+  "description": "React focus",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "./lib/",
+  "maintainers": [
+    {
+      "name": "Petr Brzek",
+      "email": "petr@avocode.com"
+    }
+  ],
+  "keywords": [
+    "react",
+    "react-component",
+    "focus"
+  ],
+  "scripts": {
+    "prepublish": "babel src/ -d lib/",
+    "start": "webpack-dev-server --hot --progress --colors",
+    "test": "mocha"
+  },
+  "peerDependencies": {
+    "react": "^0.14.8 || ^15",
+    "react-dom": "^0.14.8 || ^15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/avocode/react-focusguard.git",
+    "web": "http://github.com/avocode/react-focusguard"
+  },
+  "bugs": {
+    "url": "http://github.com/avocode/react-focusguard/issues"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "chai": "^3.5.0",
+    "chai-enzyme": "^0.5.0",
+    "cheerio": "^0.20.0",
+    "css-loader": "^0.15.6",
+    "enzyme": "^2.4.1",
+    "jsdom": "^8.0.4",
+    "less": "^2.5.1",
+    "less-loader": "^2.2.0",
+    "mocha": "^2.2.5",
+    "react": "^0.14.8 || ^15",
+    "react-addons-test-utils": "^0.14.8 || ^15",
+    "react-dom": "^0.14.8 || ^15",
+    "simulant": "^0.2.2",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  }
+}

@@ -1,0 +1,11 @@
+.babelrc
+example
+test
+*.coffee
+*.sh
+*.md
+*.yml
+webpack.config.js
+coverage
+dist
+src
