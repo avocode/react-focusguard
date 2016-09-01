@@ -1,7 +1,7 @@
 import jsdom from 'jsdom'
 import chai from 'chai'
 
-describe('FocusGuard component', function() {
+describe('FocusGuard component', () => {
   let baseProps = null
 
   let simulant = null
@@ -33,21 +33,21 @@ describe('FocusGuard component', function() {
     }
   })
 
-  it('should render component', function() {
+  it('should render component', () => {
     let focusguardComponent = React.createElement(FocusGuard, baseProps)
     let wrapper = enzyme.mount(focusguardComponent)
 
     expect(wrapper.find('FocusGuard')).to.have.length(1)
   })
 
-  it('should not have className attribute by default', function() {
+  it('should not have className prop by default', () => {
     let focusguardComponent = React.createElement(FocusGuard, baseProps)
     let wrapper = enzyme.mount(focusguardComponent)
 
     expect(wrapper.props().className).to.be.equal(null)
   })
 
-  it('should have className attribute', function() {
+  it('should have className prop', () => {
     let props = Object.assign({}, baseProps, {
       className: 'testing'
     })
@@ -57,14 +57,31 @@ describe('FocusGuard component', function() {
     expect(wrapper.props().className).to.be.equal('testing')
   })
 
-  it('should not have children by default', function() {
+  it('should not have targetNodeSelector prop by default', () => {
+    let focusguardComponent = React.createElement(FocusGuard, baseProps)
+    let wrapper = enzyme.mount(focusguardComponent)
+
+    expect(wrapper.props().targetNodeSelector).to.be.equal(null)
+  })
+
+  it('should have targetNodeSelector prop', () => {
+    let props = Object.assign({}, baseProps, {
+      targetNodeSelector: '.testing'
+    })
+    let focusguardComponent = React.createElement(FocusGuard, props)
+    let wrapper = enzyme.mount(focusguardComponent)
+
+    expect(wrapper.props().targetNodeSelector).to.be.equal('.testing')
+  })
+
+  it('should not have children by default', () => {
     let focusguardComponent = React.createElement(FocusGuard, baseProps)
     let wrapper = enzyme.mount(focusguardComponent)
 
     expect(wrapper.props().children).to.be.equal(undefined)
   })
 
-  it('should have children', function() {
+  it('should have children', () => {
     let props = Object.assign({}, baseProps, {
       children: React.DOM.div()
     })
@@ -74,7 +91,7 @@ describe('FocusGuard component', function() {
     expect(wrapper).to.contain(React.DOM.div())
   })
 
-  it('should correcly rollback focus to previous element', function() {
+  it('should correcly rollback focus to previous element', () => {
     let Test = class Contacts extends React.Component {
       constructor() {
         super()
@@ -118,7 +135,7 @@ describe('FocusGuard component', function() {
     expect(document.activeElement).to.be.equal(rootEl)
 
     expect(wrapper.find('.child')).to.have.length(1)
-    let childEl = ReactDOM.findDOMNode(wrapper.instance())
+    let childEl = rootEl.querySelector('.child')
     childEl.focus()
     expect(document.activeElement).to.be.equal(childEl)
 
@@ -126,6 +143,4 @@ describe('FocusGuard component', function() {
     expect(wrapper.find('.child')).to.have.length(0)
     expect(document.activeElement).to.be.equal(rootEl)
   })
-
-
 })
