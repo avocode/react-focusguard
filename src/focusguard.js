@@ -1,7 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 
-let { div } = React.DOM
+const { div } = React.DOM
 
 
 export default class extends React.Component {
@@ -25,8 +24,12 @@ export default class extends React.Component {
   }
 
   componentWillUnmount() {
+    setImmediate(this._setFocusToLastFocusedElement)
+  }
+
+  _setFocusToLastFocusedElement = () => {
     if (this.props.targetNodeSelector) {
-      let targetNode = document.querySelector(this.props.targetNodeSelector)
+      const targetNode = document.querySelector(this.props.targetNodeSelector)
 
       if (targetNode) {
         targetNode.focus()
@@ -44,7 +47,7 @@ export default class extends React.Component {
   render() {
     return (
       div({
-        className: this.props.className
+        className: this.props.className,
       }, this.props.children)
     )
   }

@@ -91,7 +91,7 @@ describe('FocusGuard component', () => {
     expect(wrapper).to.contain(React.DOM.div())
   })
 
-  it('should correcly rollback focus to previous element', () => {
+  it('should correcly rollback focus to previous element', (callback) => {
     let Test = class Contacts extends React.Component {
       constructor() {
         super()
@@ -141,6 +141,10 @@ describe('FocusGuard component', () => {
 
     wrapper.find('.child').simulate('doubleClick')
     expect(wrapper.find('.child')).to.have.length(0)
-    expect(document.activeElement).to.be.equal(rootEl)
+
+    setImmediate(() => {
+      expect(document.activeElement).to.be.equal(rootEl)
+      callback()
+    })
   })
 })
