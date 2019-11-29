@@ -1,16 +1,19 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
 import jsdom from 'jsdom'
-import chai from 'chai'
+import enzyme, { configure } from 'enzyme'
+import chai, { expect } from 'chai'
+import chaiEnzyme from 'chai-enzyme'
+import Adapter from 'enzyme-adapter-react-16';
+
+import FocusGuard from '../src'
+
+configure({ adapter: new Adapter() });
+chai.use(chaiEnzyme())
 
 describe('FocusGuard component', () => {
   let baseProps = null
-
   let simulant = null
-  let FocusGuard = null
-  let ReactDOM = null
-  let React = null
-  let enzyme = null
-
-  let { expect } = chai
 
   beforeEach(function() {
     global.document = jsdom.jsdom('<html><body></body></html>')
@@ -19,14 +22,6 @@ describe('FocusGuard component', () => {
     global.navigator = window.navigator
     global.CustomEvent = window.CustomEvent
     simulant = require('simulant')
-    ReactDOM = require('react-dom')
-    React = require('react')
-    enzyme = require('enzyme')
-    let chaiEnzyme = require('chai-enzyme')
-
-    chai.use(chaiEnzyme())
-
-    FocusGuard = require('../src/')
 
     baseProps = {
       className: null
@@ -83,12 +78,12 @@ describe('FocusGuard component', () => {
 
   it('should have children', () => {
     let props = Object.assign({}, baseProps, {
-      children: React.DOM.div()
+      children: <div className='abc' />
     })
     let focusguardComponent = React.createElement(FocusGuard, props)
     let wrapper = enzyme.mount(focusguardComponent)
 
-    expect(wrapper).to.contain(React.DOM.div())
+    expect(wrapper).to.contain(<div className='abc' />)
   })
 
   it('should correcly rollback focus to previous element', (callback) => {
@@ -106,19 +101,22 @@ describe('FocusGuard component', () => {
 
       render() {
         return (
-          React.DOM.div({
-            tabIndex: '-1',
-            onClick: this._handleOpen,
-            className: 'root',
-          },
-            this.state.visible &&
-              React.DOM.div({
-                tabIndex: '-1',
-                className: 'child',
-                onDoubleClick: this._handleClose,
-                children: React.createElement(FocusGuard)
-              })
-          )
+          <div
+            className='root'
+            tabIndex='-1'
+            onClick={this._handleOpen}
+          >
+            {
+              this.state.visible &&
+              <div
+                className='child'
+                tabIndex='-1'
+                onDoubleClick={this._handleClose}
+              >
+                <FocusGuard />
+              </div>
+            }
+          </div>
         )
       }
     }
