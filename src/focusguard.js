@@ -1,15 +1,13 @@
 import React from 'react'
-
-const { div } = React.DOM
-
+import PropTypes from 'prop-types';
 
 export default class extends React.Component {
   static displayName = 'FocusGuard'
 
   static propTypes = {
-    className: React.PropTypes.string,
-    children: React.PropTypes.node,
-    targetNodeSelector: React.PropTypes.string,
+    className: PropTypes.string,
+    children: PropTypes.node,
+    targetNodeSelector: PropTypes.string,
   }
 
   static defaultProps = {
@@ -46,9 +44,9 @@ export default class extends React.Component {
 
   render() {
     return (
-      div({
-        className: this.props.className,
-      }, this.props.children)
+      <div className={this.props.className}>
+        {this.props.children}
+      </div>
     )
   }
 }
